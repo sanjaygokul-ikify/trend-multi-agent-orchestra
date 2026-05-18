@@ -1,0 +1,22 @@
+version: '3.8'
+services:
+  conductor:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      RUST_LOG: "info"
+      COORDINATOR: "conductor"
+      KNOWLEDGE_GRAPH: "knowledge"
+    depends_on:
+      - knowledge_base
+
+  knowledge_base:
+    image: postgres:15-alpine
+    environment:
+      POSTGRES_USER: orchestrator
+      POSTGRES_PASSWORD: secure123!
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
