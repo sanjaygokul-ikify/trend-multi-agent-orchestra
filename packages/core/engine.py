@@ -131,7 +131,10 @@ class PluginBus:
 
     def remove_plugin(self, plugin_name):
         try:
-            del self.plugins[plugin_name]
+            if plugin_name in self.plugins:
+                del self.plugins[plugin_name]
+            else:
+                raise OrchestrationException(f"Plugin {plugin_name} not found")
         except Exception as e:
             logger.error(f"Plugin bus remove failed: {e}")
             raise OrchestrationException(f"Plugin bus remove failed: {e}")
@@ -169,7 +172,10 @@ class ExecutionEngine:
 
     def remove_task(self, task_name):
         try:
-            del self.tasks[task_name]
+            if task_name in self.tasks:
+                del self.tasks[task_name]
+            else:
+                raise OrchestrationException(f"Task {task_name} not found")
         except Exception as e:
             logger.error(f"Execution engine remove failed: {e}")
             raise OrchestrationException(f"Execution engine remove failed: {e}")
