@@ -1,0 +1,1 @@
+/target/\n/.rustup/\n/.cargo/\n/*.wasm\n/*.o\n*.log\n*.tmp\nenv\n.DS_Store\n*.env\n__pycache__/\nlogs/
