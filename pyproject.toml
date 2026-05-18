@@ -1,0 +1,26 @@
+[build-system]
+requires = ["poetry-core>=2.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry]
+name = "multi-agent-orchestra"
+version = "0.1.0"
+description = "Provider-agnostic orchestration framework for autonomous systems"
+authors = ["Architect <you@example.com>"]
+license = "Apache-2.0"
+classifiers = [
+  "Programming Language :: Rust",
+  "Framework :: Agent :: Coordination",
+  "Topic :: Security :: Provenance",
+]
+
+[tool.poetry.dependencies]
+rust = { git = "https://github.com/rust-lang/rust.git" }
+wasm32 = "^0.9.0"
+protobuf = ">=3.20.1"
+serde = "1.0.182"
+async-std = "=1.13.0"
+
+[tool.poetry.dev-dependencies]
+rust-analyzer = "^0.3.1"
+clippy = "^0.0.24"
