@@ -10,11 +10,17 @@ class Engine:
         self.agents = agents
         self.knowledge_graph = knowledge_graph
         self.coordination_layer = None
+        self.plugin_bus = None
+        self.execution_engine = None
 
     def start(self):
         try:
             # Initialize coordination layer
             self.coordination_layer = CoordinationLayer(self.agents, self.knowledge_graph)
+            # Initialize plugin bus
+            self.plugin_bus = PluginBus(self.agents, self.knowledge_graph)
+            # Initialize execution engine
+            self.execution_engine = ExecutionEngine(self.agents, self.knowledge_graph)
             # Start agents
             for agent in self.agents:
                 agent.start()
@@ -22,12 +28,20 @@ class Engine:
             self.knowledge_graph.initialize()
             # Start coordination layer
             self.coordination_layer.start()
+            # Start plugin bus
+            self.plugin_bus.start()
+            # Start execution engine
+            self.execution_engine.start()
         except Exception as e:
             logger.error(f"Engine start failed: {e}")
             raise OrchestrationException(f"Engine start failed: {e}")
 
     def stop(self):
         try:
+            # Stop execution engine
+            self.execution_engine.stop()
+            # Stop plugin bus
+            self.plugin_bus.stop()
             # Stop coordination layer
             self.coordination_layer.stop()
             # Stop agents
