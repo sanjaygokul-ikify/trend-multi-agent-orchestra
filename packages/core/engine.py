@@ -23,7 +23,11 @@ class Engine:
             self.execution_engine = ExecutionEngine(self.agents, self.knowledge_graph)
             # Start agents
             for agent in self.agents:
-                agent.start()
+                try:
+                    agent.start()
+                except Exception as e:
+                    logger.error(f"Agent {agent.name} start failed: {e}")
+                    raise OrchestrationException(f"Agent {agent.name} start failed: {e}")
             # Initialize knowledge graph
             self.knowledge_graph.initialize()
             # Start coordination layer
@@ -46,7 +50,11 @@ class Engine:
             self.coordination_layer.stop()
             # Stop agents
             for agent in self.agents:
-                agent.stop()
+                try:
+                    agent.stop()
+                except Exception as e:
+                    logger.error(f"Agent {agent.name} stop failed: {e}")
+                    raise OrchestrationException(f"Agent {agent.name} stop failed: {e}")
             # Stop knowledge graph
             self.knowledge_graph.stop()
         except Exception as e:
