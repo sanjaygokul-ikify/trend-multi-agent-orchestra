@@ -43,11 +43,14 @@ class Engine:
     def stop(self):
         try:
             # Stop execution engine
-            self.execution_engine.stop()
+            if self.execution_engine:
+                self.execution_engine.stop()
             # Stop plugin bus
-            self.plugin_bus.stop()
+            if self.plugin_bus:
+                self.plugin_bus.stop()
             # Stop coordination layer
-            self.coordination_layer.stop()
+            if self.coordination_layer:
+                self.coordination_layer.stop()
             # Stop agents
             for agent in self.agents:
                 try:
@@ -99,9 +102,11 @@ class CoordinationLayer:
     def stop(self):
         try:
             # Stop execution engine
-            self.execution_engine.stop()
+            if self.execution_engine:
+                self.execution_engine.stop()
             # Stop plugin bus
-            self.plugin_bus.stop()
+            if self.plugin_bus:
+                self.plugin_bus.stop()
         except Exception as e:
             logger.error(f"Coordination layer stop failed: {e}")
             raise OrchestrationException(f"Coordination layer stop failed: {e}")
