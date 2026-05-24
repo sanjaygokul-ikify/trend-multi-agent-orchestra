@@ -78,6 +78,9 @@ class Engine:
             logger.error(f"Knowledge graph get failed: {e}")
             raise OrchestrationException(f"Knowledge graph get failed: {e}")
 
+    def __del__(self):
+        self.stop()
+
 class CoordinationLayer:
     def __init__(self, agents: List[Agent], knowledge_graph: KnowledgeGraph):
         self.agents = agents
@@ -125,6 +128,9 @@ class CoordinationLayer:
             logger.error(f"Coordination layer get failed: {e}")
             raise OrchestrationException(f"Coordination layer get failed: {e}")
 
+    def __del__(self):
+        self.stop()
+
 class PluginBus:
     def __init__(self, agents: List[Agent], knowledge_graph: KnowledgeGraph):
         self.agents = agents
@@ -166,6 +172,9 @@ class PluginBus:
             logger.error(f"Plugin bus remove failed: {e}")
             raise OrchestrationException(f"Plugin bus remove failed: {e}")
 
+    def __del__(self):
+        self.stop()
+
 class ExecutionEngine:
     def __init__(self, agents: List[Agent], knowledge_graph: KnowledgeGraph):
         self.agents = agents
@@ -206,3 +215,6 @@ class ExecutionEngine:
         except Exception as e:
             logger.error(f"Execution engine remove failed: {e}")
             raise OrchestrationException(f"Execution engine remove failed: {e}")
+
+    def __del__(self):
+        self.stop()
