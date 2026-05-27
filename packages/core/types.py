@@ -5,24 +5,24 @@ class Agent:
         self.name = name
         self.knowledge_graph = knowledge_graph
 
-    def start(self):
+    def start(self) -> None:
         pass
 
-    def stop(self):
+    def stop(self) -> None:
         pass
 
 class KnowledgeGraph:
     def __init__(self):
         self.state = {}
 
-    def initialize(self):
+    def initialize(self) -> None:
         pass
 
-    def update(self, update: Dict):
+    def update(self, update: Dict) -> None:
         self.state.update(update)
 
-    def get_state(self):
+    def get_state(self) -> Dict:
         return self.state
 
-    def stop(self):
+    def stop(self) -> None:
         pass
