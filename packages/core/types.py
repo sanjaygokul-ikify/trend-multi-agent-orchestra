@@ -26,3 +26,6 @@ class KnowledgeGraph:
 
     def stop(self) -> None:
         pass
+
+    def __del__(self):
+        self.stop()
