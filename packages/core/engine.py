@@ -81,6 +81,14 @@ class Engine:
     def __del__(self):
         self.stop()
 
+    def __repr__(self) -> str:
+        return f"Engine({self.agents}, {self.knowledge_graph})"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Engine):
+            return False
+        return self.agents == other.agents and self.knowledge_graph == other.knowledge_graph
+
 class CoordinationLayer:
     def __init__(self, agents: List[Agent], knowledge_graph: KnowledgeGraph):
         self.agents = agents
@@ -131,6 +139,14 @@ class CoordinationLayer:
     def __del__(self):
         self.stop()
 
+    def __repr__(self) -> str:
+        return f"CoordinationLayer({self.agents}, {self.knowledge_graph})"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, CoordinationLayer):
+            return False
+        return self.agents == other.agents and self.knowledge_graph == other.knowledge_graph
+
 class PluginBus:
     def __init__(self, agents: List[Agent], knowledge_graph: KnowledgeGraph):
         self.agents = agents
@@ -175,6 +191,14 @@ class PluginBus:
     def __del__(self):
         self.stop()
 
+    def __repr__(self) -> str:
+        return f"PluginBus({self.agents}, {self.knowledge_graph})"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, PluginBus):
+            return False
+        return self.agents == other.agents and self.knowledge_graph == other.knowledge_graph
+
 class ExecutionEngine:
     def __init__(self, agents: List[Agent], knowledge_graph: KnowledgeGraph):
         self.agents = agents
@@ -218,3 +242,11 @@ class ExecutionEngine:
 
     def __del__(self):
         self.stop()
+
+    def __repr__(self) -> str:
+        return f"ExecutionEngine({self.agents}, {self.knowledge_graph})"
+
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, ExecutionEngine):
+            return False
+        return self.agents == other.agents and self.knowledge_graph == other.knowledge_graph
