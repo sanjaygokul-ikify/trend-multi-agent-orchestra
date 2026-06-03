@@ -95,6 +95,7 @@ class CoordinationLayer:
         self.knowledge_graph = knowledge_graph
         self.plugin_bus = None
         self.execution_engine = None
+        self._stop = False
 
     def start(self):
         try:
@@ -106,9 +107,24 @@ class CoordinationLayer:
             self.plugin_bus.start()
             # Start execution engine
             self.execution_engine.start()
+            # Create a new thread for the coordination layer
+            import threading
+            threading.Thread(target=self._run).start()
         except Exception as e:
             logger.error(f"Coordination layer start failed: {e}")
             raise OrchestrationException(f"Coordination layer start failed: {e}")
+
+    def _run(self):
+        while not self._stop:
+            # Perform the actual coordination
+            try:
+                self.knowledge_graph.update({"coordination_layer": "running"})
+            except Exception as e:
+                logger.error(f"Coordination layer update failed: {e}")
+                raise OrchestrationException(f"Coordination layer update failed: {e}")
+            # Introduce a small delay to simulate the coordination time
+            import time
+            time.sleep(0.1)
 
     def stop(self):
         try:
@@ -118,6 +134,7 @@ class CoordinationLayer:
             # Stop plugin bus
             if self.plugin_bus:
                 self.plugin_bus.stop()
+            self._stop = True
         except Exception as e:
             logger.error(f"Coordination layer stop failed: {e}")
             raise OrchestrationException(f"Coordination layer stop failed: {e}")
