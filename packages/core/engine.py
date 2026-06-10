@@ -120,8 +120,12 @@ class CoordinationLayer:
             try:
                 self.knowledge_graph.update({"coordination_layer": "running"})
             except Exception as e:
-                logger.error(f"Coordination layer update failed: {e}")
-                raise OrchestrationException(f"Coordination layer update failed: {e}")
+            # Add a try/except block to handle the exception
+                try:
+                    logger.error(f"Coordination layer update failed: {e}")
+                    raise OrchestrationException(f"Coordination layer update failed: {e}")
+                except Exception as ex:
+                    logger.error(f"Coordination layer exception: {ex}")
             # Introduce a small delay to simulate the coordination time
             import time
             time.sleep(0.1)
